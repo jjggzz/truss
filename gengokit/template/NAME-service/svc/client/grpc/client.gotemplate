@@ -20,6 +20,17 @@ import (
 	pb "{{.PBImportPath -}}"
 )
 
+func factoryGRPCFor(makeEndpoint func(pb.{{.Service.Name}}Server) endpoint.Endpoint, clientOptions ...grpctransport.ClientOption) sd.Factory {
+	return func(instance string) (endpoint.Endpoint, io.Closer, error) {
+		conn, err := grpc.Dial(instance, grpc.WithInsecure())
+		if err != nil {
+			return nil, nil, err
+		}
+		server, err := New(conn, clientOptions)
+		return makeEndpoint(server), conn, err
+	}
+}
+
 // New returns an service backed by a gRPC client connection. It is the
 // responsibility of the caller to dial, and later close, the connection.
 func New(conn *grpc.ClientConn, clientOptions []grpctransport.ClientOption, options ...ClientOption) (pb.{{.Service.Name}}Server, error) {
