@@ -22,7 +22,7 @@ import (
 
 // New returns an service backed by a gRPC client connection. It is the
 // responsibility of the caller to dial, and later close, the connection.
-func New(conn *grpc.ClientConn, options ...ClientOption) (pb.{{.Service.Name}}Server, error) {
+func New(conn *grpc.ClientConn, clientOptions []grpctransport.ClientOption, options ...ClientOption) (pb.{{.Service.Name}}Server, error) {
 	var cc clientConfig
 
 	for _, f := range options {
@@ -32,10 +32,12 @@ func New(conn *grpc.ClientConn, options ...ClientOption) (pb.{{.Service.Name}}Se
 		}
 	}
 
-	clientOptions := []grpctransport.ClientOption{
-		grpctransport.ClientBefore(
-			contextValuesToGRPCMetadata(cc.headers)),
-	}
+	clientOptions = append(clientOptions, grpctransport.ClientBefore(contextValuesToGRPCMetadata(cc.headers)))
+
+	//clientOptions := []grpctransport.ClientOption{
+	//	grpctransport.ClientBefore(
+	//		contextValuesToGRPCMetadata(cc.headers)),
+	//}
 	{{- with $te := .}}
 		{{- with $pkgName := $te.PackageName}}
 			{{- range $i := $te.Service.Methods}}
