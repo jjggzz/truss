@@ -227,7 +227,7 @@ func parseInput() (*truss.Config, error) {
 	fmt.Println(p[0].Name)
 	fmt.Println(cfg.ServicePath)
 	cfg.PBPath = filepath.Join(svcPath, *pbImportFlag)
-	cfg.PBPackage = filepath.Join(cfg.PBPackage, svcDirName, *pbImportFlag)
+	cfg.PBPackage = filepath.Join(cfg.ServicePackage, *pbImportFlag)
 	_ = os.Mkdir(cfg.PBPath, 0777)
 	if err := execprotoc.GeneratePBDotGo(cfg.DefPaths, cfg.GoPath, cfg.PBPath); err != nil {
 		return nil, errors.Wrap(err, "cannot create .pb.go files")
