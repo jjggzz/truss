@@ -12,7 +12,7 @@ go get github.com/jjggzz/truss
 cd $GOPATH/src/github.com/jjggzz/truss
 // 开启gomod
 export GO111MODULE=on
-// 下载依赖
+// 下载依赖 (windows直接执行wininstall.bat即可)
 make dependencies
 // 构建(若提示running "go-bindata": exec: "go-bindata": executable file not found in $PATH,请将$GOPATH/bin配置到环境变量)
 make
