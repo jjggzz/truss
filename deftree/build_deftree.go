@@ -18,8 +18,8 @@ import (
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/metaverse/truss/svcdef/svcparse"
-	"github.com/metaverse/truss/truss/execprotoc"
+	"github.com/jjggzz/truss/svcdef/svcparse"
+	"github.com/jjggzz/truss/truss/execprotoc"
 )
 
 var gengo *generator.Generator

@@ -15,8 +15,8 @@ import (
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/metaverse/truss/gengokit/httptransport/templates"
-	"github.com/metaverse/truss/svcdef"
+	"github.com/jjggzz/truss/gengokit/httptransport/templates"
+	"github.com/jjggzz/truss/svcdef"
 )
 
 // Helper is the base struct for the data structure containing all the
