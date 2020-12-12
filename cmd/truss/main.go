@@ -223,7 +223,9 @@ func parseInput() (*truss.Config, error) {
 	log.WithField("Service Package", cfg.ServicePackage).Debug()
 	log.WithField("package name", p[0].Name).Debug()
 	log.WithField("Service Path", cfg.ServicePath).Debug()
-
+	fmt.Println(cfg.ServicePackage)
+	fmt.Println(p[0].Name)
+	fmt.Println(cfg.ServicePath)
 	cfg.PBPath = filepath.Join(svcPath, *pbImportFlag)
 	cfg.PBPackage = filepath.Join(cfg.PBPackage, svcDirName, *pbImportFlag)
 	_ = os.Mkdir(cfg.PBPath, 0777)
