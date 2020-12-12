@@ -30,3 +30,7 @@ extend google.protobuf.MethodOptions {
   // See `HttpRule`.
   HttpRule http = 72295728;
 }
+
+message Empty {
+
+}
