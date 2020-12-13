@@ -8,6 +8,7 @@ package grpc
 
 import (
 	"context"
+	"io"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"github.com/pkg/errors"
