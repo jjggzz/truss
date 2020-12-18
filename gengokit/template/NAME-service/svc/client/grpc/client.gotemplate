@@ -12,6 +12,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"github.com/pkg/errors"
+	"github.com/go-kit/kit/log"
     "github.com/go-kit/kit/sd"
 	"github.com/go-kit/kit/sd/lb"
 	"github.com/go-kit/kit/endpoint"
@@ -24,7 +25,7 @@ import (
 	pb "{{.PBImportPath -}}"
 )
 
-func NewCustomerLoadBalanceClient(sd sd.Instancer, tracer *zipkin.Tracer, logger log.Logger) (pb.{{.Service.Name}}Server, error) {
+func NewCustomerLoadBalanceClient(instancer sd.Instancer, tracer *zipkin.Tracer, logger log.Logger) (pb.{{.Service.Name}}Server, error) {
 	options := []grpctransport.ClientOption{}
 	if tracer != nil {
 	    options = append(options,kitzipkin.GRPCClientTrace(tracer))
