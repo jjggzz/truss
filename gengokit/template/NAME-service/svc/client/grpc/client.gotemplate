@@ -10,6 +10,7 @@ import (
 	"context"
 	"io"
 	"google.golang.org/grpc"
+	kitzipkin "github.com/go-kit/kit/tracing/zipkin"
 	"google.golang.org/grpc/metadata"
 	"github.com/pkg/errors"
 	"github.com/go-kit/kit/log"
