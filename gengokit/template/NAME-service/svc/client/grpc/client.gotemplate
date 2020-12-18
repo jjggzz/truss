@@ -26,7 +26,7 @@ import (
 	pb "{{.PBImportPath -}}"
 )
 
-func NewCustomerLoadBalanceClient(instancer sd.Instancer, tracer *zipkin.Tracer, logger log.Logger) (pb.{{.Service.Name}}Server, error) {
+func NewLoadBalanceClient(instancer sd.Instancer, tracer *zipkin.Tracer, logger log.Logger) (pb.{{.Service.Name}}Server, error) {
 	options := []grpctransport.ClientOption{}
 	if tracer != nil {
 	    options = append(options,kitzipkin.GRPCClientTrace(tracer))
