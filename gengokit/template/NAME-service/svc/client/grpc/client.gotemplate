@@ -31,15 +31,16 @@ func NewCustomerLoadBalanceClient(sd sd.Instancer, tracer *zipkin.Tracer, logger
 	}
 
 	var endpoints svc.Endpoints
-    {{- range $i := $te.Service.Methods}}
-        {
-            factory := factoryGRPCFor(svc.Make{{ $i.Name }}Endpoint, options...)
-            endpointer := sd.NewEndpointer(instancer, factory, logger)
-            balancer := lb.NewRoundRobin(endpointer)
-            endpoints.{{ $i.Name }}Endpoint = lb.Retry(3, time.Millisecond*3000, balancer)
-        }
+	{{- with $te := .}}
+        {{- range $i := $te.Service.Methods}}
+            {
+                factory := factoryGRPCFor(svc.Make{{ $i.Name }}Endpoint, options...)
+                endpointer := sd.NewEndpointer(instancer, factory, logger)
+                balancer := lb.NewRoundRobin(endpointer)
+                endpoints.{{ $i.Name }}Endpoint = lb.Retry(3, time.Millisecond*3000, balancer)
+            }
+        {{end}}
     {{end}}
-
     return endpoints, nil
 }
 
