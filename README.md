@@ -24,8 +24,6 @@ syntax = "proto3";
 
 package proto;
 
-import "github.com/jjggzz/truss/deftree/googlethirdparty/annotations.proto";
-
 service Test {
   rpc Show (Empty) returns (Empty) {}
 
