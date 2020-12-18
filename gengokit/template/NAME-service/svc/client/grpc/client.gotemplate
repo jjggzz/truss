@@ -13,13 +13,35 @@ import (
 	"google.golang.org/grpc/metadata"
 	"github.com/pkg/errors"
     "github.com/go-kit/kit/sd"
+	"github.com/go-kit/kit/sd/lb"
 	"github.com/go-kit/kit/endpoint"
 	grpctransport "github.com/go-kit/kit/transport/grpc"
+	"github.com/openzipkin/zipkin-go"
+    "time"
 
 	// This Service
 	"{{.ImportPath -}} /svc"
 	pb "{{.PBImportPath -}}"
 )
+
+func NewCustomerLoadBalanceClient(sd sd.Instancer, tracer *zipkin.Tracer, logger log.Logger) (pb.{{.Service.Name}}Server, error) {
+	options := []grpctransport.ClientOption{}
+	if tracer != nil {
+	    options = append(options,kitzipkin.GRPCClientTrace(tracer))
+	}
+
+	var endpoints svc.Endpoints
+    {{- range $i := $te.Service.Methods}}
+        {
+            factory := factoryGRPCFor(svc.Make{{ $i.Name }}Endpoint, options...)
+            endpointer := sd.NewEndpointer(instancer, factory, logger)
+            balancer := lb.NewRoundRobin(endpointer)
+            endpoints.{{ $i.Name }}Endpoint = lb.Retry(3, time.Millisecond*3000, balancer)
+        }
+    {{end}}
+
+    return endpoints, nil
+}
 
 func factoryGRPCFor(makeEndpoint func(pb.{{.Service.Name}}Server) endpoint.Endpoint, clientOptions ...grpctransport.ClientOption) sd.Factory {
 	return func(instance string) (endpoint.Endpoint, io.Closer, error) {
