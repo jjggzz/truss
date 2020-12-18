@@ -225,6 +225,7 @@ func parseInput() (*truss.Config, error) {
 	log.WithField("Service Path", cfg.ServicePath).Debug()
 	cfg.PBPath = filepath.Join(svcPath, *pbImportFlag)
 	cfg.PBPath = filepath.Join(svcPath, *pbImportFlag)
+	cfg.PBPackage = cfg.ServicePackage
 	if *pbImportFlag != "" {
 		cfg.PBPackage = cfg.ServicePackage + "/" + *pbImportFlag
 	}
