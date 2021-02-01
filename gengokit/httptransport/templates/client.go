@@ -125,8 +125,8 @@ import (
 		"github.com/gogo/protobuf/jsonpb"
 	{{- end }}
 
-	"github.com/go-kit/kit/endpoint"
-	httptransport "github.com/go-kit/kit/transport/http"
+	"github.com/jjggzz/kit/endpoint"
+	httptransport "github.com/jjggzz/kit/transport/http"
 	"github.com/pkg/errors"
 
 	// This Service

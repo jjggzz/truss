@@ -6,9 +6,9 @@
 package server
 
 import (
-        "flag"
-        "os"
-        "fmt"
+    "flag"
+    "os"
+    "fmt"
 	"log"
 	"net"
 	"net/http"

@@ -14,7 +14,7 @@ import (
 
 	"google.golang.org/grpc/metadata"
 
-	grpctransport "github.com/go-kit/kit/transport/grpc"
+	grpctransport "github.com/jjggzz/kit/transport/grpc"
 
 	// This Service
 	pb "{{.PBImportPath -}}"
